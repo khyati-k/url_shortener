@@ -1,0 +1,24 @@
+{
+  "name": "url_shortener",
+  "version": "1.0.0",
+  "description": "FreeCodeCamp backend project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khyati-k/url_shortener.git"
+  },
+  "author": "Khyati Kulshreshtha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khyati-k/url_shortener/issues"
+  },
+  "homepage": "https://github.com/khyati-k/url_shortener#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongodb": "^3.0.4",
+    "ramda": "^0.25.0"
+  }
+}
