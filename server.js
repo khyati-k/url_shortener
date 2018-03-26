@@ -1,35 +1,43 @@
-'use strict'
+"use strict"
 
 //dependencies
-const express = require('express');
-const R = require('ramda');
+const express = require("express");
+const R = require("ramda");
+const Task = require("data.task");
+const fs = require("fs");
 
 //global configuration
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const db = {
-    'google.com':'0',
-    'https://google.com':'1',
-    'https://www.reddit.com':'2'
-};
-
-app.get('/',(req,res) => {
-    const result ='enter url after /new/';
+app.get("/",(req,res) => {
+    const result ="enter url after /new/";
 	res.send(result);
 });
-//SHORT URL - ADD VALUE FROM DB.
-const valid = url => db.hasOwnProperty(url) 
-?{'original_url':url,'short_url':`http:localhost:3000`}
-:'invalid URL';
 
-//ISSUE - CAN'T GET HTTP:// AS PARAMS.URL
-app.get('/new/:url',(req,res) => {
-    console.log(req.params.url)
-   const result = valid(String(req.params.url));
-   res.send(result);
+//SHORT URL - ADD VALUE FROM DB.
+//CHECK IF URL IS VALID AND IN DB.
+const valid = (url) =>(url)
+?{"original_url":url,"short_url":"http:localhost:3000/short/"}
+:"invalid URL";
+
+//const getParam = (name) => new Task((rej,res) => req.params.name)
+
+//JSON ->
+const main = (db) => (db)
+// if req.params.name is key in db
+// then return its value
+//value will be put in valid and sent.
+
+app.get("/new/:name(*)",(req,res) => {
 });
 
+app.get("/short/:name(*)",(req,res) => {
+    console.log(req.params.name);
+    //get original url from db using short number
+    //res.redirect();
+  });
+
 app.listen(PORT,()=>
-console.log('server started at port %d.',PORT)
+console.log("server started at port %d.",PORT)
 );

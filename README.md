@@ -1,2 +1,2 @@
-# url_shortener
+# URL Shortener
 FreeCodeCamp backend project
