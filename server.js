@@ -1,42 +1,52 @@
 "use strict"
 
 //dependencies
-const express = require("express");
-const R = require("ramda");
+const express = require("express"),
+      env = require('dotenv').config();
+const R=require("ramda");
 const Task = require("data.task");
-const fs = require("fs");
-
+//Local dependencies
+const Urls = require('./models/Urls')
 //global configuration
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/",(req,res) => {
-    const result ="enter url after /new/";
-	res.send(result);
+  const result ="enter url after /new/";
+res.send(result);
 });
 
-//SHORT URL - ADD VALUE FROM DB.
-//CHECK IF URL IS VALID AND IN DB.
-const valid = (url) =>(url)
-?{"original_url":url,"short_url":"http:localhost:3000/short/"}
-:"invalid URL";
-
-//const getParam = (name) => new Task((rej,res) => req.params.name)
-
-//JSON ->
-const main = (db) => (db)
-// if req.params.name is key in db
-// then return its value
-//value will be put in valid and sent.
-
-app.get("/new/:name(*)",(req,res) => {
-});
-
-app.get("/short/:name(*)",(req,res) => {
+//const url = new Urls({ url : 'https:reddit.com', short :'1'});
+    
+   app.get("/new/:name(*)",(req,res) => {
     console.log(req.params.name);
-    //get original url from db using short number
-    //res.redirect();
-  });
+    //check if it's valid url
+    Urls.find({ url: req.params.name},(err, a)=> {
+      if (err) return console.error(err);
+      //console.log(a);
+      //console.log(typeof a);
+      let result = a[0];
+      console.log(req.originalUrl);
+      res.send({"original url":result.url , "short url": `https://localhost:3000/short/${result.short}`})
+    })
+    })
+   app.get("/short/:name(*)",(req,res) => {
+//         console.log(req.params.name);
+         console.log(req.originalUrl);
+
+        Urls.find({short : req.params.name},(err,a) =>{
+          //TODO add site from db
+          let result =a[0];
+          res.redirect(result.url);
+        });
+  //       //check if in db
+  //       //redirect, else error
+  //       //res.redirect();
+      });
+ 
+// const result = (url,short) => (url)
+// ?{"original_url":url,"short_url":`http:localhost:3000/short/${short}`}
+// :"invalid URL";
 
 app.listen(PORT,()=>
 console.log("server started at port %d.",PORT)
