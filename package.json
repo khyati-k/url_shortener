@@ -4,8 +4,7 @@
   "description": "FreeCodeCamp backend project",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "babel server.js -d lib --watch --o"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,13 +17,11 @@
   },
   "homepage": "https://github.com/khyati-k/url_shortener#readme",
   "dependencies": {
-    "data.task": "^3.1.1",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "mongodb": "^3.0.4",
     "mongoose": "^5.0.12",
     "npm": "^5.8.0",
-    "ramda": "^0.25.0"
+    "randomatic": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
